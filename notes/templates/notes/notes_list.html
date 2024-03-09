@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="my-5 text-center">Welcome to My Notes</h1>
+        <div id="notes-container" class="row row-cols-1 row-cols-md-3 g-4">
+            {% for note in notes %}
+                <div class="col">
+                    <div class="card h-100 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ note.title }}</h5>
+                            <p class="card-text">{{ note.text|truncatechars:50 }}</p>
+                            <a href="{% url 'notes.detail' pk=note.id %}" class="btn btn-primary animate__animated animate__fadeInUp">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter == 6 %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <button id="load-more-btn" class="btn btn-success btn-lg animate__animated animate__fadeIn">Load More</button>
+                    </div>
+                    <div id="additional-notes" class="row row-cols-1 row-cols-md-3 g-4" style="display: none;">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <style>
+        /* Custom CSS */
+        #notes-container .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #notes-container .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #notes-container .card-title {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        #notes-container .card-text {
+            color: #666;
+            font-size: 1.25rem;
+        }
+
+        #notes-container .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        #notes-container .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Custom Load More Button */
+        #load-more-btn {
+            background-color: #28a745; /* Change the background color */
+            border-color: #28a745;
+            color: #fff; /* Change the text color */
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        #load-more-btn:hover {
+            background-color: #218838; /* Change the hover background color */
+            border-color: #218838;
+        }
+    </style>
+
+    <script>
+        document.getElementById('load-more-btn').addEventListener('click', function() {
+            document.getElementById('additional-notes').style.display = 'flex';
+            this.style.display = 'none';
+        });
+    </script>
+{% endblock %}

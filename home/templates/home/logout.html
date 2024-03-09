@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Logout Confirmation</h2>
+          <form id="logout-form" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <p class="card-text">Are you sure you want to logout?</p>
+            <div class="mt-5">
+              <a href="{% url 'notes.list' %}" class="btn btn-secondary me-3 animate__animated animate__fadeInLeft">Back</a>
+              <button type="submit" class="btn btn-danger animate__animated animate__fadeInRight" onclick="handleLogout(event)">Logout</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="thankyou-message" class="text-center mt-5" style="display: none;">
+  <h2 class="animate__animated animate__fadeInUp">See You Again!</h2>
+  <p class="animate__animated animate__fadeInUp">You will be redirected to the home page automatically.</p>
+  <p class="animate__animated animate__fadeInUp">{{ today }}</p>
+</div>
+
+<script>
+  function handleLogout(event) {
+    event.preventDefault();
+    document.getElementById("logout-form").style.display = "none";
+    document.getElementById("thankyou-message").style.display = "block";
+    setTimeout(function() {
+      document.getElementById("logout-form").submit();
+    }, 3000); // 3 seconds after displaying the 'thankyou' message
+  }
+</script>
+{% endblock %}

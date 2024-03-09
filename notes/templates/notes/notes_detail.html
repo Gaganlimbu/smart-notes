@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="border rounded p-4 shadow-lg">
+        <h1 class="my-5">{{ note.title }}</h1>
+        <p>{{ note.text }}</p>
+    </div>
+
+    <div class="mt-5">
+        <a href="{% url 'notes.list' %}" class="btn btn-secondary btn-lg me-3 animate__animated animate__fadeInLeft">Back</a>
+        <a href="{% url 'notes.update' pk=note.id %}" class="btn btn-primary btn-lg me-3 animate__animated animate__fadeInUp">Edit</a>
+        <a href="{% url 'notes.delete' pk=note.id %}" class="btn btn-danger btn-lg animate__animated animate__fadeInRight">Delete</a>
+    </div>
+</div>
+{% endblock %}

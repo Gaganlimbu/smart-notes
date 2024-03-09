@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="text-center">
+        <h1 class="mb-4 display-4 fw-bold animate__animated animate__fadeInDown">Welcome to Smart Notes</h1>
+        <p class="lead animate__animated animate__fadeInUp">Today is {{today}}</p>
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-lg animate__animated animate__fadeInUp">Check out these smart notes</a>
+    </div>
+{% endblock %}
